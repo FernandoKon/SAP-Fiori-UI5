@@ -1,0 +1,16 @@
+[{
+    "name": "Apple",
+    "color": "Red",
+    "quantity": 5
+},
+{
+    "name": "Orange",
+    "color": "Orange",
+    "quantity": 9
+},
+{
+    "name": "Banana",
+    "color": "Yellow",
+    "quantity": 3
+}
+]

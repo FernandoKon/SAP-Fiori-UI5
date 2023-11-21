@@ -1,16 +1,12 @@
-[{
-    "name": "Apple",
-    "color": "Red",
-    "quantity": 5
-},
-{
-    "name": "Orange",
-    "color": "Orange",
-    "quantity": 9
-},
-{
-    "name": "Banana",
-    "color": "Yellow",
-    "quantity": 3
-}
+[
+    {"name": "Arroz", "quantity": 5},
+    {"name": "Feijão",  "quantity": 8},
+    {"name": "Macarrão",  "quantity": 10},
+    {"name": "Óleo de cozinha",  "quantity": 3},
+    {"name": "Leite",  "quantity": 7},
+    {"name": "Café",  "quantity": 4},
+    {"name": "Açucar",  "quantity": 6},
+    {"name": "Sal",  "quantity": 2},
+    {"name": "Farinha de trigo",  "quantity": 9},
+    {"name": "Sabonete",  "quantity": 11}
 ]

@@ -6,7 +6,8 @@ sap.ui.define([
     "sap/ui/model/Filter",         
     "sap/ui/model/FilterOperator",
     "sap/ui/model/resource/ResourceModel",
-    'sap/m/library'
+    'sap/m/library',
+    "sap/ui/model/odata/v2/ODataModel"
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
@@ -18,27 +19,8 @@ sap.ui.define([
 
         return Controller.extend("com.lab2dev.firstapp.controller.Home", {
             onInit: function () {
-
-                const list = [
-                    {Name: "Notebook 1", Price: 956.00, CurrencyCode: "BRL", Status: "Available", WeightMeasure: 4.5, WeightUnit: "KG", Width: 35, Depth: 19, Height: 3, DimUnit: "cm"},
-                    {Name: "Notebook 2", Price: 1200.00, CurrencyCode: "BRL", Status: "Available", WeightMeasure: 4.2, WeightUnit: "KG", Width: 25, Depth: 18, Height: 2, DimUnit: "cm"},
-                    {Name: "Notebook 3", Price: 1155.40, CurrencyCode: "BRL", Status: "Out of Stock", WeightMeasure: 4.5, WeightUnit: "KG", Width: 30, Depth: 20, Height: 4, DimUnit: "cm"},
-                    {Name: "Notebook 4", Price: 2999.00, CurrencyCode: "BRL", Status: "Available", WeightMeasure: 4.2, WeightUnit: "KG", Width: 29, Depth: 22, Height: 3, DimUnit: "cm"},
-                    {Name: "Notebook 5", Price: 1854.00, CurrencyCode: "BRL", Status: "Discontinued", WeightMeasure: 4.5, WeightUnit: "KG", Width: 32, Depth: 25, Height: 2, DimUnit: "cm"},
-                    {Name: "Notebook 6", Price: 999.99, CurrencyCode: "BRL", Status: "Out of Stock", WeightMeasure: 4.2, WeightUnit: "KG", Width: 30, Depth: 19, Height: 4, DimUnit: "cm"},
-                    {Name: "iPhone 8", Price: 999.99, CurrencyCode: "BRL", Status: "Out of Stock", WeightMeasure: 4.2, WeightUnit: "KG", Width: 30, Depth: 19, Height: 4, DimUnit: "cm"},
-                    {Name: "Iphone 12", Price: 1999.99, CurrencyCode: "BRL", Status: "Available", WeightMeasure: 4.2, WeightUnit: "KG", Width: 30, Depth: 19, Height: 4, DimUnit: "cm"}
-                ]
-
-                const products = [
-                    {Name: "Notebook 1", ProductId: 1, Supplier: "Titanium", Price: 956.00, CurrencyCode: "BRL", WeightMeasure: 4.5, WeightUnit: "KG", Width: 35, Depth: 19, Height: 3, DimUnit: "cm"},
-                    {Name: "Notebook 1", ProductId: 2, Supplier: "Titanium", Price: 956.00, CurrencyCode: "BRL", WeightMeasure: 10.5, WeightUnit: "KG", Width: 35, Depth: 19, Height: 3, DimUnit: "cm"},
-                    {Name: "Notebook 1", ProductId: 3, Supplier: "Titanium", Price: 956.00, CurrencyCode: "BRL", WeightMeasure: 0.5, WeightUnit: "KG", Width: 35, Depth: 19, Height: 3, DimUnit: "cm"},
-                    {Name: "iPhone 8", ProductId: 4, Supplier: "Titanium", Price: 956.00, CurrencyCode: "BRL", WeightMeasure: 2.5, WeightUnit: "KG", Width: 35, Depth: 19, Height: 3, DimUnit: "cm"},
-                    {Name: "Notebook 1", ProductId: 5, Supplier: "Titanium", Price: 956.00, CurrencyCode: "BRL", WeightMeasure: 3.5, WeightUnit: "KG", Width: 35, Depth: 19, Height: 3, DimUnit: "cm"},
-                ]
                 
-                var oModel = new JSONModel(products);
+                var oModel = new JSONModel("https://services.odata.org/northwind/Northwind.svc/");
                 this.getView().setModel(oModel, "products");    
 
             },

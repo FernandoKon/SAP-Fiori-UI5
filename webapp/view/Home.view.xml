@@ -5,7 +5,9 @@
         <Table
             id="idProductTable"
             inset="false"
-            items="{products>/}">
+            items="{
+                path: '/Products'
+            }">
            	<headerToolbar>
 			<OverflowToolbar>
 				<content>
@@ -52,19 +54,19 @@
 			<Column
 				minScreenWidth="Tablet"
 				demandPopin="true">
-				<Text text="Supplier" />
+				<Text text="SupplierID" />
 			</Column>
 			<Column
 				minScreenWidth="Desktop"
 				demandPopin="true"
 				hAlign="End">
-				<Text text="Dimensions" />
+				<Text text="UnitsInStock" />
 			</Column>
 			<Column
 				minScreenWidth="Desktop"
 				demandPopin="true"
 				hAlign="Center">
-				<Text text="Weight" />
+				<Text text="UnitsOnOrder" />
 			</Column>
 			<Column
 				hAlign="End">
@@ -74,26 +76,19 @@
 		<items>
 			<ColumnListItem vAlign="Middle">
 					<cells>
-                        <ObjectIdentifier title="{products>Name}" text="{products>ProductId}"/>
-                        <Text text="{products>Supplier}" />
-                        <Text text="{products>Width} x {products>Depth} x {products>Height} {products>DimUnit}" />
+                        <ObjectIdentifier title="{ProductName}" text="{ProductID}"/>
+                        <Text text="{SupplierID}" />
+                        <Text text="{UnitsInStock}" />
                         <ObjectNumber
-                            number="{products>WeightMeasure}"
-                            unit="{products>WeightUnit}"
+                            number="{UnitsOnOrder}"
                             state="{
                                 parts: [
-                                    {path: 'products>WeightMeasure'},
-                                    {path: 'products>WeightUnit'}
+                                    {path: 'products>WeightMeasure'}
                                 ],
                                 formatter: 'com.lab2dev.firstapp.controller.Formatter.weightState'
                             }" />
                         <ObjectNumber
-                            number="{
-                                parts:[{path:'products>Price'},{path:'products>CurrencyCode'}],
-                                type: 'sap.ui.model.type.Currency',
-                                formatOptions: {showMeasure: false}
-                            }"
-                            unit="{products>CurrencyCode}" />
+                            number="{UnitPrice}" />
                     </cells>
                 </ColumnListItem>
             </items>

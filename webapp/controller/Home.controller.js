@@ -5,13 +5,16 @@ sap.ui.define([
     "./Formatter",
     "sap/ui/model/Filter",         
     "sap/ui/model/FilterOperator",
-    "sap/ui/model/resource/ResourceModel"
+    "sap/ui/model/resource/ResourceModel",
+    'sap/m/library'
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller, JSONModel, MessageBox, ResourceModel, Filter, FilterOperator, Formatter) {
+    function (Controller, JSONModel, MessageBox, ResourceModel, Filter, FilterOperator, Formatter, mobileLibrary) {
         "use strict";
+
+        const PopinLayout = mobileLibrary.PopinLayout;
 
         return Controller.extend("com.lab2dev.firstapp.controller.Home", {
             onInit: function () {
@@ -27,8 +30,16 @@ sap.ui.define([
                     {Name: "Iphone 12", Price: 1999.99, CurrencyCode: "BRL", Status: "Available", WeightMeasure: 4.2, WeightUnit: "KG", Width: 30, Depth: 19, Height: 4, DimUnit: "cm"}
                 ]
 
-                var oModel = new JSONModel(list);
-                this.getView().setModel(oModel, "listModel");
+                const products = [
+                    {Name: "Notebook 1", ProductId: 1, Supplier: "Titanium", Price: 956.00, CurrencyCode: "BRL", WeightMeasure: 4.5, WeightUnit: "KG", Width: 35, Depth: 19, Height: 3, DimUnit: "cm"},
+                    {Name: "Notebook 1", ProductId: 2, Supplier: "Titanium", Price: 956.00, CurrencyCode: "BRL", WeightMeasure: 10.5, WeightUnit: "KG", Width: 35, Depth: 19, Height: 3, DimUnit: "cm"},
+                    {Name: "Notebook 1", ProductId: 3, Supplier: "Titanium", Price: 956.00, CurrencyCode: "BRL", WeightMeasure: 0.5, WeightUnit: "KG", Width: 35, Depth: 19, Height: 3, DimUnit: "cm"},
+                    {Name: "iPhone 8", ProductId: 4, Supplier: "Titanium", Price: 956.00, CurrencyCode: "BRL", WeightMeasure: 2.5, WeightUnit: "KG", Width: 35, Depth: 19, Height: 3, DimUnit: "cm"},
+                    {Name: "Notebook 1", ProductId: 5, Supplier: "Titanium", Price: 956.00, CurrencyCode: "BRL", WeightMeasure: 3.5, WeightUnit: "KG", Width: 35, Depth: 19, Height: 3, DimUnit: "cm"},
+                ]
+                
+                var oModel = new JSONModel(products);
+                this.getView().setModel(oModel, "products");    
 
             },
 
@@ -59,7 +70,7 @@ sap.ui.define([
                 }
     
                 // update list binding
-                var oList = this.byId("idList");
+                var oList = this.byId("idProductTable");
                 var oBinding = oList.getBinding("items");
                 oBinding.filter(aFilters);
             },
@@ -81,6 +92,45 @@ sap.ui.define([
                 oLabel.setText(sText);
             },
 
+            onPopinLayoutChanged: function() {
+                var oTable = this.byId("idProductsTable");
+                var oComboBox = this.byId("idPopinLayout");
+                var sPopinLayout = oComboBox.getSelectedKey();
+                switch (sPopinLayout) {
+                    case "Block":
+                        oTable.setPopinLayout(PopinLayout.Block);
+                        break;
+                    case "GridLarge":
+                        oTable.setPopinLayout(PopinLayout.GridLarge);
+                        break;
+                    case "GridSmall":
+                        oTable.setPopinLayout(PopinLayout.GridSmall);
+                        break;
+                    default:
+                        oTable.setPopinLayout(PopinLayout.Block);
+                        break;
+                }
+            },
 
+            onSelect: function(oEvent) {
+                var bSelected = oEvent.getParameter("selected"),
+                    sText = oEvent.getSource().getText(),
+                    oTable = this.byId("idProductsTable"),
+                    aSticky = oTable.getSticky() || [];
+
+                if (bSelected) {
+                    aSticky.push(sText);
+                } else if (aSticky.length) {
+                    var iElementIndex = aSticky.indexOf(sText);
+                    aSticky.splice(iElementIndex, 1);
+                }
+
+                oTable.setSticky(aSticky);
+            },
+
+            onToggleInfoToolbar: function(oEvent) {
+                var oTable = this.byId("idProductsTable");
+                oTable.getInfoToolbar().setVisible(!oEvent.getParameter("pressed"));
+            }
         });
     });

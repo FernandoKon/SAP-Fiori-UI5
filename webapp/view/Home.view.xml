@@ -1,57 +1,102 @@
 <mvc:View controllerName="com.lab2dev.firstapp.controller.Home"
     xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
-	xmlns:fiori="sap.ui.webc.fiori"
-    xmlns="sap.m"
-	height="100%">
-	
-	<Page showHeader="false"  id="page" title="{i18n>title}">
-		<subHeader>
+    xmlns="sap.m" xmlns:core="sap.ui.core">
+    <Page id="page" title="{i18n>title}">
+        <Table
+            id="idProductTable"
+            inset="false"
+            items="{products>/}">
+           	<headerToolbar>
 			<OverflowToolbar>
-				<SearchField liveChange=".onSearch" width="100%"  placeholder="Search" />
+				<content>
+					<Title text="Products" level="H2"/>
+					<ToolbarSpacer />
+					 <SearchField 
+               width="50%" 
+               liveChange=".onSearch"/>
+					<ComboBox id="idPopinLayout"
+						placeholder="Popin layout options"
+						change="onPopinLayoutChanged">
+						<items>
+							<core:Item  text="Block"
+								key="Block"/>
+							<core:Item  text="Grid Large"
+								key="GridLarge"/>
+							<core:Item  text="Grid Small"
+								key="GridSmall"/>
+						</items>
+					</ComboBox>
+					<Label text="Sticky options:" />
+					<CheckBox text="ColumnHeaders"
+						select="onSelect"/>
+					<CheckBox text="HeaderToolbar"
+						select="onSelect"/>
+					<CheckBox text="InfoToolbar"
+						select="onSelect"/>
+					<ToggleButton id="toggleInfoToolbar"
+						text="Hide/Show InfoToolbar"
+						press="onToggleInfoToolbar" />
+				</content>
 			</OverflowToolbar>
-		</subHeader>
-		<List
-			id="idList"
-			items="{listModel>/}"
-			headerText="Products"
-			headerLevel="H2"
-			>
-			<!--
-			selectionChange=".onSelectionChange"
-			mode="MultiSelect"
-			growing="true"
-			growingThreshold="50"
-			includeItemInSelection="true"
-			-->
-
-			<!-- <infoToolbar>
-				<OverflowToolbar visible="false" id="idInfoToolbar">
-					<Label id="idFilterLabel" />
-				</OverflowToolbar>
-			</infoToolbar> -->
-			
-			<ObjectListItem
-				title="{listModel>Name}"
-				type="Active"
-				press="onPress"
-				number="{
-					parts:[{path:'listModel>Price'},{path:'listModel>CurrencyCode'}],
-					type: 'sap.ui.model.type.Currency',
-					formatOptions: {showMeasure: false}
-				}"
-				numberUnit="{listModel>CurrencyCode}">
-				<firstStatus>
-					<ObjectStatus
-						text="{listModel>Status}"
-						state="{
-							path: 'listModel>Status',
-							formatter: 'com.lab2dev.firstapp.controller.Formatter.status'
-						}" />
-				</firstStatus>
-				<ObjectAttribute text="{listModel>WeightMeasure} {listModel>WeightUnit}" />
-				<ObjectAttribute text="{listModel>Width} x {listModel>Depth} x {listModel>Height} {listModel>DimUnit}" />
-			</ObjectListItem>
-		</List>
-	</Page>
-	
+		</headerToolbar>
+		<infoToolbar>
+			<OverflowToolbar>
+				<Label text="Wide range of available products"/>
+			</OverflowToolbar>
+		</infoToolbar>
+		<columns>
+			<Column
+				width="12em">
+				<Text text="Product" />
+			</Column>
+			<Column
+				minScreenWidth="Tablet"
+				demandPopin="true">
+				<Text text="Supplier" />
+			</Column>
+			<Column
+				minScreenWidth="Desktop"
+				demandPopin="true"
+				hAlign="End">
+				<Text text="Dimensions" />
+			</Column>
+			<Column
+				minScreenWidth="Desktop"
+				demandPopin="true"
+				hAlign="Center">
+				<Text text="Weight" />
+			</Column>
+			<Column
+				hAlign="End">
+				<Text text="Price" />
+			</Column>
+		</columns>
+		<items>
+			<ColumnListItem vAlign="Middle">
+					<cells>
+                        <ObjectIdentifier title="{products>Name}" text="{products>ProductId}"/>
+                        <Text text="{products>Supplier}" />
+                        <Text text="{products>Width} x {products>Depth} x {products>Height} {products>DimUnit}" />
+                        <ObjectNumber
+                            number="{products>WeightMeasure}"
+                            unit="{products>WeightUnit}"
+                            state="{
+                                parts: [
+                                    {path: 'products>WeightMeasure'},
+                                    {path: 'products>WeightUnit'}
+                                ],
+                                formatter: 'com.lab2dev.firstapp.controller.Formatter.weightState'
+                            }" />
+                        <ObjectNumber
+                            number="{
+                                parts:[{path:'products>Price'},{path:'products>CurrencyCode'}],
+                                type: 'sap.ui.model.type.Currency',
+                                formatOptions: {showMeasure: false}
+                            }"
+                            unit="{products>CurrencyCode}" />
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
+    </Page>
 </mvc:View>

@@ -1,30 +1,57 @@
 <mvc:View controllerName="com.lab2dev.firstapp.controller.Home"
     xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
-    xmlns="sap.m">
-    <List
-		headerText="Products"
-		headerLevel="H2"
-		items="{listModel>/}" >
-		<ObjectListItem
-			title="{listModel>name}"
-			type="Active"
-			press="onPress"
-			number="{
-				parts:[{path:'listModel>Price'},{path:'listModel>CurrencyCode'}],
-				type: 'sap.ui.model.type.Currency',
-				formatOptions: {showMeasure: false}
-			}"
-			numberUnit="{listModel>CurrencyCode}">
-			<firstStatus>
-				<ObjectStatus
-					text="{listModel>Status}"
-					state="{
-						path: 'listModel>Status',
-						formatter: 'com.lab2dev.firstapp.controller.Formatter.status'
-					}" />
-			</firstStatus>
-			<ObjectAttribute text="{listModel>WeightMeasure} {listModel>WeightUnit}" />
-			<ObjectAttribute text="{listModel>Width} x {listModel>Depth} x {listModel>Height} {listModel>DimUnit}" />
-		</ObjectListItem>
-	</List>
+	xmlns:fiori="sap.ui.webc.fiori"
+    xmlns="sap.m"
+	height="100%">
+	
+	<Page showHeader="false"  id="page" title="{i18n>title}">
+		<subHeader>
+			<OverflowToolbar>
+				<SearchField liveChange=".onSearch" width="100%"  placeholder="Search" />
+			</OverflowToolbar>
+		</subHeader>
+		<List
+			id="idList"
+			items="{listModel>/}"
+			headerText="Products"
+			headerLevel="H2"
+			>
+			<!--
+			selectionChange=".onSelectionChange"
+			mode="MultiSelect"
+			growing="true"
+			growingThreshold="50"
+			includeItemInSelection="true"
+			-->
+
+			<!-- <infoToolbar>
+				<OverflowToolbar visible="false" id="idInfoToolbar">
+					<Label id="idFilterLabel" />
+				</OverflowToolbar>
+			</infoToolbar> -->
+			
+			<ObjectListItem
+				title="{listModel>Name}"
+				type="Active"
+				press="onPress"
+				number="{
+					parts:[{path:'listModel>Price'},{path:'listModel>CurrencyCode'}],
+					type: 'sap.ui.model.type.Currency',
+					formatOptions: {showMeasure: false}
+				}"
+				numberUnit="{listModel>CurrencyCode}">
+				<firstStatus>
+					<ObjectStatus
+						text="{listModel>Status}"
+						state="{
+							path: 'listModel>Status',
+							formatter: 'com.lab2dev.firstapp.controller.Formatter.status'
+						}" />
+				</firstStatus>
+				<ObjectAttribute text="{listModel>WeightMeasure} {listModel>WeightUnit}" />
+				<ObjectAttribute text="{listModel>Width} x {listModel>Depth} x {listModel>Height} {listModel>DimUnit}" />
+			</ObjectListItem>
+		</List>
+	</Page>
+	
 </mvc:View>

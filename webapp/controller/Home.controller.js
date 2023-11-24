@@ -2,27 +2,35 @@ sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/ui/model/json/JSONModel",
     "sap/m/MessageBox",
-    "./Formatter",
+    "com/lab2dev/firstapp/model/Formatter",
     "sap/ui/model/Filter",         
     "sap/ui/model/FilterOperator",
     "sap/ui/model/resource/ResourceModel",
     'sap/m/library',
-    "sap/ui/model/odata/v2/ODataModel"
+    'sap/ui/model/odata/v2/ODataModel'
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller, JSONModel, MessageBox, ResourceModel, Filter, FilterOperator, Formatter, mobileLibrary) {
+    function (Controller,JSONModel, MessageBox, Formatter, Filter, FilterOperator, ResourceModel, mobileLibrary, oDataModel) {
         "use strict";
 
         const PopinLayout = mobileLibrary.PopinLayout;
 
         return Controller.extend("com.lab2dev.firstapp.controller.Home", {
+            formatter: Formatter,
+            
             onInit: function () {
                 
-                var oModel = new JSONModel("https://services.odata.org/northwind/Northwind.svc/");
-                this.getView().setModel(oModel, "products");    
+                var oModel = new oDataModel("/northwind/Northwind.svc/");
 
+
+                this.getView().setModel(oModel);    
+
+            },
+
+            onNavTo: function(){
+                this.getOwnerComponent().getRouter().navTo("ProductDetail")
             },
 
             onHello: function(){
@@ -47,7 +55,7 @@ sap.ui.define([
                 var aFilters = [];
                 var sQuery = oEvent.getSource().getValue();
                 if (sQuery && sQuery.length > 0) {
-                    var filter = new Filter("Name", FilterOperator.Contains, sQuery);
+                    var filter = new Filter("ProductName", FilterOperator.Contains, sQuery);
                     aFilters.push(filter);
                 }
     

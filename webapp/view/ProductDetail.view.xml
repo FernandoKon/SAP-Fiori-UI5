@@ -1,0 +1,31 @@
+<mvc:View controllerName="com.lab2dev.firstapp.controller.ProductDetail"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m" xmlns:core="sap.ui.core">
+    <Page showHeader="false" id="page" title="{i18n>title}">
+		<subHeader>
+			<OverflowToolbar>
+				<SearchField liveChange=".onSearch" width="100%"  placeholder="Search" />
+			</OverflowToolbar>
+		</subHeader>
+		<List
+			id="idProductDetail"
+			items="{/Products}"
+			headerText="Products"
+			headerLevel="H2"
+			>
+			
+			<ObjectListItem
+				title="{ProductName}"
+				type="Active"
+				press="onPress"
+				number="{
+					parts:[{path:'UnitPrice'},{path:'ProductCurrencyCode'}],
+					type: 'sap.ui.model.type.Currency',
+					formatOptions: {showMeasure: false}
+				}"
+				numberUnit="{ProductCurrencyCode}">
+				<ObjectAttribute text="{QuantityPerUinit}" />
+			</ObjectListItem>
+		</List>
+    </Page>    
+</mvc:View>

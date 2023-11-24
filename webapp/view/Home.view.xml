@@ -1,7 +1,7 @@
 <mvc:View controllerName="com.lab2dev.firstapp.controller.Home"
     xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
     xmlns="sap.m" xmlns:core="sap.ui.core">
-    <Page id="page" title="{i18n>title}">
+    <Page showHeader="false" id="page" title="{i18n>title}">
         <Table
             id="idProductTable"
             inset="false"
@@ -12,6 +12,7 @@
 			<OverflowToolbar>
 				<content>
 					<Title text="Products" level="H2"/>
+					<Button icon="sap-icon://arrow-right" press="onNavTo"/>
 					<ToolbarSpacer />
 					 <SearchField 
                width="50%" 
@@ -39,6 +40,7 @@
 						text="Hide/Show InfoToolbar"
 						press="onToggleInfoToolbar" />
 				</content>
+				
 			</OverflowToolbar>
 		</headerToolbar>
 		<infoToolbar>
@@ -85,7 +87,7 @@
                                 parts: [
                                     {path: 'products>WeightMeasure'}
                                 ],
-                                formatter: 'com.lab2dev.firstapp.controller.Formatter.weightState'
+                                formatter: 'formatter.weightState'
                             }" />
                         <ObjectNumber
                             number="{UnitPrice}" />
